@@ -1,4 +1,5 @@
 import Product from "@/components/product";
+import Pagination from "@/components/pagination";
 
 const products = [
   {
@@ -56,6 +57,7 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <Pagination />
     </div>
   );
 }
