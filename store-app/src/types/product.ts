@@ -50,3 +50,9 @@ export interface Meta {
   barcode: string;
   qrCode: string;
 }
+
+export interface Metadata {
+  total: number;
+  skip: number;
+  limit: number;
+}
