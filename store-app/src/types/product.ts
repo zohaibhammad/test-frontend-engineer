@@ -56,3 +56,11 @@ export interface Metadata {
   skip: number;
   limit: number;
 }
+
+export interface SerializedProduct {
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: string;
+  category: string;
+}

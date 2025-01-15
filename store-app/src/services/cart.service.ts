@@ -1,17 +1,16 @@
-import { Product } from "@/types/product";
+import { Product, SerializedProduct } from "@/types/product";
 import { toast } from "react-toastify";
 
-export const getCart = () => localStorage.getItem("cart")!;
+export const getCart = (): SerializedProduct[] =>
+  JSON.parse(localStorage.getItem("cart")!);
 
 export const updateCart = (product: Product) => {
-  const cart = JSON.parse(getCart());
-
   if (alreadyInCart(product.id)) {
     toast("Product already in cart", { type: "info" });
     return;
   }
 
-  const serializedProduct = {
+  const serializedProduct: SerializedProduct = {
     id: product.id,
     title: product.title,
     price: product.price,
@@ -19,19 +18,21 @@ export const updateCart = (product: Product) => {
     category: product.category,
   };
 
+  const cart = getCart();
   const newCart = cart ? [...cart, serializedProduct] : [serializedProduct];
   localStorage.setItem("cart", JSON.stringify(newCart));
+  toast("Product added to cart", { type: "success" });
 };
 
 export const clearCart = () => localStorage.removeItem("cart");
 
 export const removeFromCart = (id: number) => {
-  const cart = JSON.parse(getCart());
-  const newCart = cart.filter((item: Product) => item.id !== id);
+  const cart = getCart();
+  const newCart = cart.filter((item: SerializedProduct) => item.id !== id);
   localStorage.setItem("cart", JSON.stringify(newCart));
 };
 
 export const alreadyInCart = (id: number) => {
-  const cart = JSON.parse(getCart());
-  return cart.some((item: Product) => item.id === id);
+  const cart = getCart();
+  return cart.some((item: SerializedProduct) => item.id === id);
 };
