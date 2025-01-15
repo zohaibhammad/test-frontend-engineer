@@ -12,6 +12,7 @@ import { classNames } from "@/utils/helpers";
 import { Product } from "@/types/product";
 import { getSingleProduct } from "@/services/products.service";
 import { ClipLoader } from "react-spinners";
+import { updateCart } from "@/services/cart.service";
 
 const override: CSSProperties = {
   display: "block",
@@ -33,6 +34,11 @@ export default function ProductDetails({
   useEffect(() => {
     getProduct();
   }, [id, getProduct]);
+
+  const addToCart = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    updateCart(product!);
+  };
 
   return (
     <div className="bg-white">
@@ -113,10 +119,10 @@ export default function ProductDetails({
 
               <form className="mt-10">
                 <button
-                  type="submit"
+                  onClick={addToCart}
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Add to bag
+                  Add to cart
                 </button>
               </form>
             </div>
