@@ -12,14 +12,6 @@ const Pagination = ({
   const totalPages = Math.ceil(total / limit);
   const currentPage = Math.floor(skip / limit) + 1;
 
-  console.log(total, limit, totalPages, currentPage);
-
-  // Create an array of page numbers to display
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
   const handleClick = (page: number) => {
     if (page !== currentPage && page >= 1 && page <= totalPages) {
       const skip = (page - 1) * limit;
@@ -30,13 +22,24 @@ const Pagination = ({
   const generatePagination = () => {
     const pagination = [];
 
+    // Show the current page (visible on mobile and larger screens)
+    pagination.push(
+      <button
+        key="current-page"
+        onClick={() => handleClick(currentPage)}
+        className="px-4 py-2 text-sm font-medium text-blue-500 bg-white border border-gray-300 rounded-md focus:outline-none sm:hidden block"
+      >
+        {currentPage}
+      </button>,
+    );
+
     // Handle first page and ellipsis (showing only relevant page numbers)
     if (currentPage > 2) {
       pagination.push(
         <button
           key="first"
           onClick={() => handleClick(1)}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none"
+          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none sm:block hidden"
         >
           1
         </button>,
@@ -45,7 +48,7 @@ const Pagination = ({
         pagination.push(
           <span
             key="ellipsis-start"
-            className="px-4 py-2 text-sm text-gray-500"
+            className="px-4 py-2 text-sm text-gray-500 sm:block hidden"
           >
             ...
           </span>,
@@ -62,7 +65,11 @@ const Pagination = ({
         <button
           key={i}
           onClick={() => handleClick(i)}
-          className={`px-4 py-2 text-sm font-medium rounded-md border ${i === currentPage ? "bg-blue-500 text-white" : "text-gray-700 bg-white border-gray-300 hover:bg-gray-200"} focus:outline-none`}
+          className={`px-4 py-2 text-sm font-medium rounded-md border ${
+            i === currentPage
+              ? "bg-blue-500 text-white"
+              : "text-gray-700 bg-white border-gray-300 hover:bg-gray-200"
+          } focus:outline-none sm:block hidden`}
         >
           {i}
         </button>,
@@ -73,7 +80,10 @@ const Pagination = ({
     if (currentPage < totalPages - 1) {
       if (currentPage < totalPages - 2) {
         pagination.push(
-          <span key="ellipsis-end" className="px-4 py-2 text-sm text-gray-500">
+          <span
+            key="ellipsis-end"
+            className="px-4 py-2 text-sm text-gray-500 sm:block hidden"
+          >
             ...
           </span>,
         );
@@ -82,7 +92,7 @@ const Pagination = ({
         <button
           key="last"
           onClick={() => handleClick(totalPages)}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none"
+          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none sm:block hidden"
         >
           {totalPages}
         </button>,
