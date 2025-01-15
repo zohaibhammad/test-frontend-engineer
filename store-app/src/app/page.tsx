@@ -3,9 +3,14 @@
 import Product from "@/components/product";
 import Pagination from "@/components/pagination";
 import React, { CSSProperties, useEffect, useState } from "react";
-import { getProducts } from "@/Services/products.service";
+import { getProducts } from "@/services/products.service";
 import type { Metadata, Product as ProductModel } from "@/types/product";
 import { ClipLoader } from "react-spinners";
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+};
 
 export default function Home() {
   const [products, setProducts] = useState<ProductModel[] | []>([]);
@@ -15,10 +20,6 @@ export default function Home() {
     limit: 0,
   });
   const [loading, setLoading] = useState<boolean>(true);
-  const override: CSSProperties = {
-    display: "block",
-    margin: "0 auto",
-  };
 
   useEffect(() => {
     productsAPI();

@@ -3,8 +3,13 @@
 import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react/";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
-export default function Header() {
+export default function Header({
+  setCartOpenAction,
+}: {
+  setCartOpenAction: (value: boolean) => void;
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -34,12 +39,15 @@ export default function Header() {
           </button>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm/6 font-semibold text-gray-900 mr-5">
+          <Link href="/" className="text-sm/6 font-semibold text-gray-900 mr-5">
             Products
-          </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          </Link>
+          <button
+            onClick={() => setCartOpenAction(true)}
+            className="text-sm/6 font-semibold text-gray-900"
+          >
             Cart <span aria-hidden="true">&rarr;</span>
-          </a>
+          </button>
         </div>
       </nav>
       <Dialog
@@ -70,20 +78,20 @@ export default function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Products
-                </a>
+                </Link>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
+                <button
+                  onClick={() => setCartOpenAction(true)}
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Cart
-                </a>
+                </button>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import type { ProductsResponse } from "@/types/product";
+import type { Product, ProductsResponse } from "@/types/product";
 
 export const getProducts = async (skip: number) => {
   const res = await fetch(
@@ -6,4 +6,10 @@ export const getProducts = async (skip: number) => {
   );
   const productData: ProductsResponse = await res.json();
   return productData;
+};
+
+export const getSingleProduct = async (id: string) => {
+  const res = await fetch(`https://dummyjson.com/products/${id}`);
+  const product: Product = await res.json();
+  return product;
 };
