@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { getCart } from "@/services/cart.service";
+import { getCart, removeFromCart } from "@/services/cart.service";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SerializedProduct } from "@/types/product";
@@ -23,7 +23,16 @@ export default function Cart({
 
   useEffect(() => {
     setCart(getCart());
-  }, []);
+  }, [cartOpen]);
+
+  const calculateTotal = () => {
+    return cart.reduce((acc, item) => acc + item.price, 0);
+  };
+
+  const removeProduct = (id: number) => {
+    removeFromCart(id);
+    setCart(getCart());
+  };
 
   return (
     <Dialog
@@ -68,45 +77,52 @@ export default function Cart({
                         role="list"
                         className="-my-6 divide-y divide-gray-200"
                       >
-                        {cart.map((product) => (
-                          <li key={product.id} className="flex py-6">
-                            <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                              <img
-                                alt="Product"
-                                src={product.thumbnail}
-                                className="size-full object-cover"
-                              />
-                            </div>
-
-                            <div className="ml-4 flex flex-1 flex-col">
-                              <div>
-                                <div className="flex justify-between text-base font-medium text-gray-900">
-                                  <h3>
-                                    <Link href={`/product/${product.id}`}>
-                                      {product.title}
-                                    </Link>
-                                  </h3>
-                                  <p className="ml-4">${product.price}</p>
-                                </div>
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {product.category}
-                                </p>
+                        {cart.length === 0 ? (
+                          <p className="text-sm text-gray-500">
+                            Your cart is empty
+                          </p>
+                        ) : (
+                          cart.map((product) => (
+                            <li key={product.id} className="flex py-6">
+                              <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                <img
+                                  alt="Product"
+                                  src={product.thumbnail}
+                                  className="size-full object-cover"
+                                />
                               </div>
-                              <div className="flex flex-1 items-end justify-between text-sm">
-                                <p className="text-gray-500">Qty 1</p>
 
-                                <div className="flex">
-                                  <button
-                                    type="button"
-                                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                                  >
-                                    Remove
-                                  </button>
+                              <div className="ml-4 flex flex-1 flex-col">
+                                <div>
+                                  <div className="flex justify-between text-base font-medium text-gray-900">
+                                    <h3>
+                                      <Link href={`/product/${product.id}`}>
+                                        {product.title}
+                                      </Link>
+                                    </h3>
+                                    <p className="ml-4">${product.price}</p>
+                                  </div>
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {product.category}
+                                  </p>
+                                </div>
+                                <div className="flex flex-1 items-end justify-between text-sm">
+                                  <p className="text-gray-500">Qty 1</p>
+
+                                  <div className="flex">
+                                    <button
+                                      type="button"
+                                      onClick={() => removeProduct(product.id)}
+                                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                                    >
+                                      Remove
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </li>
-                        ))}
+                            </li>
+                          ))
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -115,7 +131,7 @@ export default function Cart({
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <p>Subtotal</p>
-                    <p>$262.00</p>
+                    <p>${calculateTotal()}</p>
                   </div>
                   <p className="mt-0.5 text-sm text-gray-500">
                     Shipping and taxes calculated at checkout.

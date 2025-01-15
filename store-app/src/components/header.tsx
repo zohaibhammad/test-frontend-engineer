@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react/";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Icon from "@/assets/icon.svg";
+import Image from "next/image";
 
 export default function Header({
   setCartOpenAction,
@@ -20,11 +22,13 @@ export default function Header({
       >
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              alt=""
-              src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+            <span className="sr-only">Store</span>
+            <Image
+              alt="logo"
+              src={Icon.src}
               className="h-8 w-auto"
+              width={10}
+              height={10}
             />
           </Link>
         </div>
