@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-Commerce App
+
+A simple e-commerce application with a product listing page, product detail page, and cart functionality. Built with **Next.js**, **TypeScript**, and styled using **Tailwind CSS**.
+
+## Features
+
+- **Product Listing Page**: Displays all available products.
+- **Product Detail Page**: Provides detailed information about a selected product.
+- **Cart**: Allows users to add and remove products from their cart and view the total.
+
+## Tech Stack
+
+- **Framework**: Next.js
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/ecommerce-app.git
+   cd ecommerce-app
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open your browser and navigate to:
+   ```
+   http://localhost:3000
+   ```
+
+### Build for Production
+
+To build the app for production:
 ```bash
-npm run dev
+npm run build
+npm run start
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn build
+yarn start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Thought Process and Architectural Decisions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Next.js for SSR/SSG**: Chosen for its flexibility in rendering, enabling both server-side and static generation of pages, which is ideal for an e-commerce app with dynamic content.
+2. **TypeScript**: Used for type safety and better maintainability.
+3. **Tailwind CSS**: Selected for rapid UI development with a utility-first approach, ensuring consistency in styling.
+4. **File Structure**: Organized components and pages into clearly defined folders (`pages`, `components`) for scalability and readability.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Trade-Offs and Assumptions
 
-## Learn More
+1. **Limited Backend Integration**: For simplicity, the app uses static or mocked data for products and cart functionality, assuming a backend API would replace these in a real-world scenario.
+2. **Minimal State Management**: States are managed using built-in useState hooks for minimal state management requirements. This works well for the current app scope but may need to be replaced with a more robust state management solution (e.g., Redux) for larger applications.
+3. **No Authentication**: User authentication and profile management were not implemented, as they were beyond the scope of this test project.
 
-To learn more about Next.js, take a look at the following resources:
+## Future Improvements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Integration with a backend API for dynamic data fetching.
+- Improved accessibility (ARIA attributes, keyboard navigation).
+- Adding tests (unit and integration) to ensure functionality.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the [MIT License](LICENSE).
