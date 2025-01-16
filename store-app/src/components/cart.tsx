@@ -26,7 +26,7 @@ export default function Cart({
   }, [cartOpen]);
 
   const calculateTotal = () => {
-    return cart.reduce((acc, item) => acc + item.price, 0);
+    return cart?.reduce((acc, item) => acc + item.price, 0);
   };
 
   const removeProduct = (id: number) => {
@@ -77,12 +77,12 @@ export default function Cart({
                         role="list"
                         className="-my-6 divide-y divide-gray-200"
                       >
-                        {cart.length === 0 ? (
+                        {cart?.length === 0 ? (
                           <p className="text-sm text-gray-500">
                             Your cart is empty
                           </p>
                         ) : (
-                          cart.map((product) => (
+                          cart?.map((product) => (
                             <li key={product.id} className="flex py-6">
                               <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                                 <img
